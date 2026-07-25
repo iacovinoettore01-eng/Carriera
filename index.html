@@ -9,12 +9,10 @@
       --bg-color: #0f1115;
       --card-bg: #181b20;
       --accent-color: #00ff66;
-      --accent-hover: #00cc52;
       --text-color: #ffffff;
-      --text-muted: #8a8f99;
-      --border-color: #262a33;
+      --text-muted: #8b9199;
+      --border-color: #2b2e33;
       --danger: #ff4d4d;
-      --warning: #ffcc00;
     }
 
     * {
@@ -33,7 +31,6 @@
       overflow: hidden;
     }
 
-    /* Header */
     header {
       background-color: var(--card-bg);
       padding: 12px 16px;
@@ -41,12 +38,6 @@
       justify-content: space-between;
       align-items: center;
       border-bottom: 1px solid var(--border-color);
-    }
-
-    .club-info {
-      display: flex;
-      align-items: center;
-      gap: 10px;
     }
 
     .club-title {
@@ -62,7 +53,6 @@
       color: var(--text-muted);
     }
 
-    /* Navigation Tabs */
     nav {
       display: flex;
       background-color: #131519;
@@ -76,10 +66,9 @@
       border: none;
       color: var(--text-muted);
       font-weight: bold;
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       cursor: pointer;
       text-transform: uppercase;
-      transition: all 0.2s;
       border-bottom: 3px solid transparent;
     }
 
@@ -89,25 +78,24 @@
       background-color: var(--card-bg);
     }
 
-    /* Main Container */
     main {
       flex: 1;
       overflow-y: auto;
       padding: 15px;
-      position: relative;
+      display: flex;
+      flex-direction: column;
     }
 
     .tab-content {
       display: none;
       height: 100%;
+      flex-direction: column;
     }
 
     .tab-content.active {
       display: flex;
-      flex-direction: column;
     }
 
-    /* CHAT TAB */
     .chat-box {
       flex: 1;
       overflow-y: auto;
@@ -119,20 +107,22 @@
 
     .message {
       max-width: 85%;
-      padding: 12px 15px;
-      border-radius: 10px;
+      padding: 12px 16px;
+      border-radius: 12px;
       font-size: 0.95rem;
       line-height: 1.4;
     }
 
     .message.ai {
       background-color: var(--card-bg);
-      align-self: flex-start;
       border-left: 3px solid var(--accent-color);
+      align-self: flex-start;
     }
 
     .message.user {
-      background-color: #00552b;
+      background-color: var(--accent-color);
+      color: #000;
+      font-weight: 500;
       align-self: flex-end;
     }
 
@@ -143,6 +133,7 @@
       padding: 10px;
       border-radius: 10px;
       border: 1px solid var(--border-color);
+      margin-bottom: 50px; 
     }
 
     .chat-input-area input {
@@ -164,257 +155,138 @@
       cursor: pointer;
     }
 
-    /* DASHBOARD GRID */
+    /* Modificato: Aggiunta scrollbar e spazio di sicurezza inferiore per la dashboard */
+    .dashboard-container {
+      flex: 1;
+      overflow-y: auto;
+      padding-bottom: 60px;
+    }
+
     .dashboard-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 15px;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
     }
 
     .card {
       background-color: var(--card-bg);
-      border-radius: 10px;
       padding: 15px;
+      border-radius: 10px;
       border: 1px solid var(--border-color);
     }
 
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-      border-bottom: 1px solid var(--border-color);
-      padding-bottom: 8px;
-    }
-
     .card-title {
-      font-size: 0.95rem;
-      font-weight: bold;
-      color: var(--accent-color);
-      text-transform: uppercase;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .card-list {
-      list-style: none;
-      font-size: 0.85rem;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .card-list li {
-      display: flex;
-      justify-content: space-between;
-      padding: 4px 0;
-      border-bottom: 1px dashed #262a33;
-    }
-
-    .badge {
-      padding: 2px 6px;
-      border-radius: 4px;
       font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+
+    .card-value {
+      font-size: 1.2rem;
       font-weight: bold;
     }
 
-    .badge-success { background: #004d1a; color: #00ff66; }
-    .badge-warning { background: #4d3d00; color: #ffcc00; }
-    .badge-danger { background: #4d0000; color: #ff4d4d; }
-
+    .strike-pill {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      background-color: rgba(255, 77, 77, 0.2);
+      color: var(--danger);
+    }
   </style>
 </head>
 <body>
 
   <header>
-    <div class="club-info">
-      <div>
-        <div class="club-title" id="clubName">SUNDERLAND AFC</div>
-        <div class="club-meta">Stagione 2017/18 • Premier League</div>
-      </div>
+    <div>
+      <div class="club-title">Sunderland AFC</div>
+      <div class="club-meta">Stagione 2017/18 • Premier League</div>
     </div>
     <div style="text-align: right;">
-      <div class="club-title" style="color: #ffffff;">3° POSTO</div>
-      <div class="club-meta">Strikes: <span style="color: var(--accent-color); font-weight: bold;">0 / 2.5</span></div>
+      <div class="card-value" style="font-size: 1rem;">3° POSTO</div>
+      <div class="club-meta">Strikes: <span class="strike-pill">0 / 2.5</span></div>
     </div>
   </header>
 
   <nav>
-    <button class="nav-btn active" onclick="switchTab('chatTab', this)">💬 Direttore IA</button>
-    <button class="nav-btn" onclick="switchTab('dashboardTab', this)">📊 Gestione Club</button>
+    <button class="nav-btn active" onclick="switchTab('chat')">💬 Direttore IA</button>
+    <button class="nav-btn" onclick="switchTab('club')">📊 Gestione Club</button>
   </nav>
 
   <main>
-    
-    <div id="chatTab" class="tab-content active">
+    <div id="tab-chat" class="tab-content active">
       <div class="chat-box" id="chatBox">
         <div class="message ai">
           <strong>Direttore Sportivo:</strong><br>
-          Benvenuto Mister! Siamo al 3° posto in Premier League, agli ottavi di Champions e in semifinale di EFL Cup. Inserisci i prossimi risultati o le tue richieste di mercato qui sotto!
+          Benvenuto Mister! Nuovo progetto pronto. Inserisci le tue richieste o i risultati qui sotto.
         </div>
       </div>
       <div class="chat-input-area">
-        <input type="text" id="userInput" placeholder="Es: Registra Sunderland 2-1 Everton (Belotti, Khazri)" onkeypress="handleKeyPress(event)" />
+        <input type="text" id="userInput" placeholder="Scrivi un messaggio..." onkeydown="if(event.key === 'Enter') sendMessage()" />
         <button onclick="sendMessage()">Invia</button>
       </div>
     </div>
 
-    <div id="dashboardTab" class="tab-content">
-      <div class="dashboard-grid">
-
-        <div class="card">
-          <div class="card-header">
-            <span class="card-title">🔍 Scouting Department</span>
+    <div id="tab-club" class="tab-content">
+      <div class="dashboard-container">
+        <div class="dashboard-grid">
+          <div class="card">
+            <div class="card-title">Posizione</div>
+            <div class="card-value">3° Posto</div>
           </div>
-          <ul class="card-list">
-            <li><span>In cerca di:</span> <strong>TD di spinta (&lt; €8M)</strong></li>
-            <li><span>1. Tete (Ajax)</span> <span class="badge badge-success">Consigliato</span></li>
-            <li><span>2. Mbabu (YB)</span> <span class="badge badge-warning">Under-21</span></li>
-          </ul>
-        </div>
-
-        <div class="card">
-          <div class="card-header">
-            <span class="card-title">📈 Statistiche Squadra</span>
+          <div class="card">
+            <div class="card-title">Strikes</div>
+            <div class="card-value" style="color: var(--accent-color);">0 / 2.5</div>
           </div>
-          <ul class="card-list">
-            <li><span>Top Scorer:</span> <strong>W. Khazri (14 Gol)</strong></li>
-            <li><span>Top Assistman:</span> <strong>R. Ghezzal (8 Assist)</strong></li>
-            <li><span>Clean Sheets:</span> <strong>7 Partite</strong></li>
-          </ul>
-        </div>
-
-        <div class="card">
-          <div class="card-header">
-            <span class="card-title">🎯 Obiettivi & Strikes</span>
+          <div class="card">
+            <div class="card-title">Champions League</div>
+            <div class="card-value">Ottavi</div>
           </div>
-          <ul class="card-list">
-            <li><span>Premier (Top 4)</span> <span class="badge badge-success">3° Posto (OK)</span></li>
-            <li><span>Champions (Ottavi)</span> <span class="badge badge-success">Raggiunto</span></li>
-            <li><span>EFL Cup (Semifinale)</span> <span class="badge badge-success">Raggiunto</span></li>
-          </ul>
-        </div>
-
-        <div class="card">
-          <div class="card-header">
-            <span class="card-title">📜 Imposizioni Società</span>
+          <div class="card">
+            <div class="card-title">EFL Cup</div>
+            <div class="card-value">Semifinale</div>
           </div>
-          <ul class="card-list">
-            <li><span>Mantenere Monte Ingaggi</span> <strong>&lt; €1.2M/wk</strong></li>
-            <li><span>Sviluppo Giovani</span> <strong>2 Under-21 titolari</strong></li>
-          </ul>
         </div>
-
-        <div class="card">
-          <div class="card-header">
-            <span class="card-title">👕 Rosa Principale</span>
-          </div>
-          <ul class="card-list">
-            <li><span>ATT: Belotti, Defoe</span></li>
-            <li><span>COC/TRQ: Khazri, Ghezzal</span></li>
-            <li><span>CC: Van Ginkel, Hughes, McNair</span></li>
-            <li><span>DC: Kirchhoff, Djilobodji, Carlos</span></li>
-          </ul>
-        </div>
-
-        <div class="card">
-          <div class="card-header">
-            <span class="card-title">📊 Analisi Dati</span>
-          </div>
-          <ul class="card-list">
-            <li><span>Stakanovista:</span> <strong>Pickford (1.800 min)</strong></li>
-            <li><span>Sorpresa:</span> <strong>J. Rodwell</strong></li>
-            <li><span>Flop:</span> <strong>--</strong></li>
-          </ul>
-        </div>
-
-        <div class="card">
-          <div class="card-header">
-            <span class="card-title">📜 Ultimi Risultati</span>
-          </div>
-          <ul class="card-list">
-            <li><span>Man City 1-2 Sun</span> <span class="badge badge-success">V</span></li>
-            <li><span>Sun 2-1 Liverpool</span> <span class="badge badge-success">V</span></li>
-            <li><span>Sun 0-2 Newcastle</span> <span class="badge badge-danger">S</span></li>
-          </ul>
-        </div>
-
-        <div class="card">
-          <div class="card-header">
-            <span class="card-title">⚠️ Imprevisti Attivi</span>
-          </div>
-          <ul class="card-list">
-            <li><span>Nessun imprevisto grave registrato al momento.</span></li>
-          </ul>
-        </div>
-
-        <div class="card">
-          <div class="card-header">
-            <span class="card-title">🏥 Infermeria</span>
-          </div>
-          <ul class="card-list">
-            <li><span>J. Rodwell</span> <span class="badge badge-danger">3 Settimane</span></li>
-          </ul>
-        </div>
-
-        <div class="card">
-          <div class="card-header">
-            <span class="card-title">🔄 Storico Mercato</span>
-          </div>
-          <ul class="card-list">
-            <li><span>Acquisti:</span> <strong>A. Belotti (€18M)</strong></li>
-            <li><span>Cessioni:</span> <strong>L. Cattermole (€4.5M)</strong></li>
-          </ul>
-        </div>
-
       </div>
     </div>
-
   </main>
 
   <script>
-    function switchTab(tabId, btn) {
+    function switchTab(tabName) {
       document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
       
-      document.getElementById(tabId).classList.add('active');
-      btn.classList.add('active');
-    }
-
-    function handleKeyPress(e) {
-      if (e.key === 'Enter') {
-        sendMessage();
-      }
+      document.getElementById('tab-' + tabName).classList.add('active');
+      event.currentTarget.classList.add('active');
     }
 
     function sendMessage() {
       const input = document.getElementById('userInput');
-      const messageText = input.value.trim();
-      if (!messageText) return;
+      const text = input.value.trim();
+      if (!text) return;
 
       const chatBox = document.getElementById('chatBox');
 
-      // Messaggio Utente
       const userMsg = document.createElement('div');
       userMsg.className = 'message user';
-      userMsg.innerHTML = messageText;
+      userMsg.innerText = text;
       chatBox.appendChild(userMsg);
 
       input.value = '';
       chatBox.scrollTop = chatBox.scrollHeight;
 
-      // Risposta AI Automatica
       setTimeout(() => {
         const aiMsg = document.createElement('div');
         aiMsg.className = 'message ai';
-        aiMsg.innerHTML = `<strong>Direttore Sportivo:</strong><br>Ricevuto Mister! Ho preso nota dell'aggiornamento. Ricordati di riportarlo anche nella nostra chat principale per mantenere la narrazione sempre aggiornata!`;
+        aiMsg.innerHTML = `<strong>Direttore Sportivo:</strong><br>Ricevuto Mister! Aggiornamento registrato.`;
         chatBox.appendChild(aiMsg);
         chatBox.scrollTop = chatBox.scrollHeight;
       }, 800);
     }
   </script>
+
 </body>
 </html>
-
-  
